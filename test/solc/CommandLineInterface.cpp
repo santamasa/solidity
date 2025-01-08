@@ -1431,15 +1431,15 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_incompatible_outputs)
 		},
 		{
 			{"solc", "--via-ir", "--ethdebug",  "--asm-json", tempDir.path().string() + "/input.sol"},
-			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir, --ir-optimized.\n"
+			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir / --ir-optimized.\n"
 		},
 		{
 			{"solc", "--via-ir", "--ethdebug",  "--ir-ast-json", tempDir.path().string() + "/input.sol"},
-			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir, --ir-optimized.\n"
+			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir / --ir-optimized.\n"
 		},
 		{
 			{"solc", "--via-ir", "--ethdebug",  "--ir-optimized-ast-json", tempDir.path().string() + "/input.sol"},
-			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir, --ir-optimized.\n"
+			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir / --ir-optimized.\n"
 		},
 		{
 			{"solc", "--ethdebug", "--import-asm-json", tempDir.path().string() + "/input.json"},
@@ -1447,7 +1447,7 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_incompatible_outputs)
 		},
 		{
 			{"solc", "--via-ir", "--ethdebug",  "--asm-json", tempDir.path().string() + "/input.sol"},
-			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir, --ir-optimized.\n"
+			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir / --ir-optimized.\n"
 		},
 		{
 			{"solc", "--ethdebug-runtime",  "--asm-json", tempDir.path().string() + "/input.sol"},
@@ -1455,15 +1455,15 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_incompatible_outputs)
 		},
 		{
 			{"solc", "--via-ir", "--ethdebug-runtime",  "--asm-json", tempDir.path().string() + "/input.sol"},
-			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir, --ir-optimized.\n"
+			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir / --ir-optimized.\n"
 		},
 		{
 			{"solc", "--via-ir", "--ethdebug-runtime",  "--ir-ast-json", tempDir.path().string() + "/input.sol"},
-			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir, --ir-optimized.\n"
+			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir / --ir-optimized.\n"
 		},
 		{
 			{"solc", "--via-ir", "--ethdebug-runtime",  "--ir-optimized-ast-json", tempDir.path().string() + "/input.sol"},
-			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir, --ir-optimized.\n"
+			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir / --ir-optimized.\n"
 		},
 		{
 			{"solc", "--ethdebug-runtime", "--import-asm-json", tempDir.path().string() + "/input.json"},
@@ -1471,23 +1471,23 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_incompatible_outputs)
 		},
 		{
 			{"solc", "--via-ir", "--ethdebug-runtime",  "--asm-json", tempDir.path().string() + "/input.sol"},
-			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir, --ir-optimized.\n"
+			"Error: --ethdebug / --ethdebug-runtime output can only be used with --ir / --ir-optimized.\n"
 		},
 		{
 			{"solc", "--debug-info", "ethdebug",  "--asm-json", tempDir.path().string() + "/input.sol"},
-			"Error: --debug-info ethdebug can only be used with --ir, --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
+			"Error: --debug-info ethdebug can only be used with --ir / --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
 		},
 		{
 			{"solc", "--debug-info", "ethdebug",  "--asm-json", tempDir.path().string() + "/input.sol"},
-			"Error: --debug-info ethdebug can only be used with --ir, --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
+			"Error: --debug-info ethdebug can only be used with --ir / --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
 		},
 		{
 			{"solc", "--debug-info", "ethdebug",  "--ir-ast-json", tempDir.path().string() + "/input.sol"},
-			"Error: --debug-info ethdebug can only be used with --ir, --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
+			"Error: --debug-info ethdebug can only be used with --ir / --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
 		},
 		{
 			{"solc", "--debug-info", "ethdebug",  "--ir-optimized-ast-json", tempDir.path().string() + "/input.sol"},
-			"Error: --debug-info ethdebug can only be used with --ir, --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
+			"Error: --debug-info ethdebug can only be used with --ir / --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
 		},
 		{
 			{"solc", "--debug-info", "ethdebug", "--import-asm-json", tempDir.path().string() + "/input.json"},
@@ -1499,7 +1499,7 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_incompatible_outputs)
 		},
 		{
 			{"solc", "--debug-info", "ethdebug", "--asm-json", tempDir.path().string() + "/input.json"},
-			"Error: --debug-info ethdebug can only be used with --ir, --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
+			"Error: --debug-info ethdebug can only be used with --ir / --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"
 		}
 	};
 	for (auto const& test: tests)
@@ -1560,7 +1560,7 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_debug_info_ethdebug)
 	static std::vector<std::tuple<std::vector<std::string>, std::vector<std::string>, std::vector<std::string>>> tests{
 		{
 			{"solc", "--debug-info", "ethdebug", tempDir.path().string() + "/input.sol"},
-			{"Error: --debug-info ethdebug can only be used with --ir, --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"},
+			{"Error: --debug-info ethdebug can only be used with --ir / --ir-optimized and/or --ethdebug / --ethdebug-runtime.\n"},
 			{},
 		},
 		{
@@ -1581,12 +1581,12 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_debug_info_ethdebug)
 		{
 			{"solc", "--debug-info", "ethdebug", "--ethdebug", "--via-ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program):"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program):"},
 		},
 		{
 			{"solc", "--debug-info", "ethdebug", "--ethdebug-runtime", "--via-ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data of the runtime part (ethdebug/format/program):"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data of the runtime part (ethdebug/format/program):"},
 		},
 		{
 			{"solc", "--debug-info", "ethdebug", "--strict-assembly", tempDir.path().string() + "/input.yul"},
@@ -1596,7 +1596,7 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_debug_info_ethdebug)
 		{
 			{"solc",  "--ethdebug", "--strict-assembly", tempDir.path().string() + "/input.yul"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program):"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program):"},
 		},
 		{
 			{"solc",  "--ethdebug-runtime", "--strict-assembly", tempDir.path().string() + "/input.yul"},
@@ -1626,7 +1626,7 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_debug_info_ethdebug)
 		{
 			{"solc", "--debug-info", "ethdebug", "--ethdebug", "--ethdebug-runtime", "--via-ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program):", "Debug Data of the runtime part (ethdebug/format/program):"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program):", "Debug Data of the runtime part (ethdebug/format/program):"},
 		},
 		{
 			{"solc", "--debug-info", "location", "--ethdebug", "--via-ir", tempDir.path().string() + "/input.sol"},
@@ -1693,62 +1693,62 @@ BOOST_AUTO_TEST_CASE(cli_ethdebug_ethdebug_output)
 		{
 			{"solc", "--ethdebug", "--via-ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program)"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program)"},
 		},
 		{
 			{"solc", "--ethdebug-runtime", "--via-ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data of the runtime part (ethdebug/format/program)"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data of the runtime part (ethdebug/format/program)"},
 		},
 		{
 			{"solc", "--ethdebug", "--ethdebug-runtime", "--via-ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program)", "Debug Data of the runtime part (ethdebug/format/program)"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program)", "Debug Data of the runtime part (ethdebug/format/program)"},
 		},
 		{
 			{"solc", "--ethdebug", "--via-ir", "--ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 		{
 			{"solc", "--ethdebug-runtime", "--via-ir", "--ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 		{
 			{"solc", "--ethdebug", "--ethdebug-runtime", "--via-ir", "--ir", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program)", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program)", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 		{
 			{"solc", "--ethdebug", "--via-ir", "--ir-optimized", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 		{
 			{"solc", "--ethdebug-runtime", "--via-ir", "--ir-optimized", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 		{
 			{"solc", "--ethdebug", "--ethdebug-runtime", "--via-ir", "--ir-optimized", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program)", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program)", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 		{
 			{"solc", "--ethdebug", "--via-ir", "--ir-optimized", "--optimize", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 		{
 			{"solc", "--ethdebug-runtime", "--via-ir", "--ir-optimized", "--optimize", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 		{
 			{"solc", "--ethdebug", "--ethdebug-runtime", "--via-ir", "--ir-optimized", "--optimize", tempDir.path().string() + "/input.sol"},
 			{},
-			{"======= Debug Data (ethdebug/format/object) =======", "Debug Data (ethdebug/format/program)", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
+			{"======= Debug Data (ethdebug/format/info) =======", "Debug Data (ethdebug/format/program)", "Debug Data of the runtime part (ethdebug/format/program)", "/// ethdebug: enabled"},
 		},
 	};
 	for (auto const& test: tests)

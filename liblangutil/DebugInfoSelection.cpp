@@ -49,7 +49,7 @@ DebugInfoSelection const DebugInfoSelection::Only(bool DebugInfoSelection::* _me
 	return result;
 }
 
-DebugInfoSelection const DebugInfoSelection::Except(std::vector<bool DebugInfoSelection::*> const& _members) noexcept
+DebugInfoSelection const DebugInfoSelection::AllExcept(std::vector<bool DebugInfoSelection::*> const& _members) noexcept
 {
 	DebugInfoSelection result = All();
 	for (bool DebugInfoSelection::* member: _members)
@@ -64,7 +64,7 @@ std::optional<DebugInfoSelection> DebugInfoSelection::fromString(std::string_vie
 	solAssert(componentMap().count("none") == 0, "");
 
 	if (_input == "all")
-		return ExceptExperimental();
+		return AllExceptExperimental();
 	if (_input == "none")
 		return None();
 
@@ -82,7 +82,7 @@ std::optional<DebugInfoSelection> DebugInfoSelection::fromComponents(
 	for (auto const& component: _componentNames)
 	{
 		if (component == "*")
-			return (_acceptWildcards ? std::make_optional(ExceptExperimental()) : std::nullopt);
+			return (_acceptWildcards ? std::make_optional(AllExceptExperimental()) : std::nullopt);
 
 		if (!selection.enable(component))
 			return std::nullopt;

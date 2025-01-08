@@ -59,8 +59,9 @@ public:
 	virtual std::string const* sourceMapping(std::string const& _contractName) const override;
 	virtual std::string const* runtimeSourceMapping(std::string const& _contractName) const override;
 
-	virtual Json ethdebug(std::string const& _contractName, bool _runtime) const override;
-	virtual Json ethdebug() const override;
+	Json ethdebug(std::string const& _contractName) const override;
+	Json ethdebugRuntime(std::string const& _contractName) const override;
+	Json ethdebug() const override;
 
 	virtual Json assemblyJSON(std::string const& _contractName) const override;
 	virtual std::string assemblyString(std::string const& _contractName, StringMap const& _sourceCodes) const override;
@@ -90,8 +91,8 @@ private:
 	langutil::DebugInfoSelection m_debugInfoSelection = langutil::DebugInfoSelection::Default();
 	std::string m_sourceMapping;
 	std::string m_runtimeSourceMapping;
-	Json m_ethdebug;
-	Json m_runtimeEthdebug;
+	std::unique_ptr<Json> m_ethdebug;
+	std::unique_ptr<Json> m_ethdebugRuntime;
 };
 
 } // namespace solidity::evmasm

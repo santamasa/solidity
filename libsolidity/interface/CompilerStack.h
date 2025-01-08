@@ -393,7 +393,11 @@ public:
 
 	/// @returns a JSON representing the ethdebug data of the specified contract.
 	/// Prerequisite: Successful call to parse or compile.
-	Json ethdebug(std::string const& _contractName, bool _runtime) const override;
+	Json ethdebug(std::string const& _contractName) const override;
+
+	/// @returns a JSON representing the ethdebug data of the specified contract.
+	/// Prerequisite: Successful call to parse or compile.
+	Json ethdebugRuntime(std::string const& _contractName) const override;
 
 	/// @returns a JSON representing the top-level ethdebug data (types, etc.).
 	/// Prerequisite: Successful call to parse or compile.
@@ -581,6 +585,7 @@ private:
 
 	/// @returns the Contract ethdebug data.
 	/// This will generate the JSON object and store it in the Contract object if it is not present yet.
+	/// Prerequisite: Successful call to parse or compile.
 	Json ethdebug(Contract const& _contract, bool _runtime) const;
 
 	/// @returns the offset of the entry point of the given function into the list of assembly items

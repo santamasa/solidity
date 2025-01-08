@@ -1183,15 +1183,21 @@ Json CompilerStack::interfaceSymbols(std::string const& _contractName) const
 
 Json CompilerStack::ethdebug() const
 {
+	solAssert(m_stackState >= AnalysisSuccessful, "Analysis was not successful.");
+	solAssert(!m_contracts.empty());
 	Json result = Json::object();
 	result["sources"] = sourceNames();
 	return result;
 }
 
-Json CompilerStack::ethdebug(std::string const& _contractName, bool _runtime) const
+Json CompilerStack::ethdebug(std::string const& _contractName) const
 {
-	solAssert(m_stackState >= AnalysisSuccessful, "Analysis was not successful.");
-	return ethdebug(contract(_contractName), _runtime);
+	return ethdebug(contract(_contractName), /* runtime */ false);
+}
+
+Json CompilerStack::ethdebugRuntime(std::string const& _contractName) const
+{
+	return ethdebug(contract(_contractName), /* runtime */ true);
 }
 
 Json CompilerStack::ethdebug(Contract const& _contract, bool _runtime) const

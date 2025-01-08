@@ -1943,12 +1943,12 @@ BOOST_AUTO_TEST_CASE(ethdebug_debug_info_ethdebug)
 	static std::vector<std::tuple<Json, std::string, std::optional<std::function<bool(Json)>>>> tests{
 		{
 			generateStandardJson(false, Json::array({"ethdebug"}), Json::array({"*"})),
-			"'settings.debug.debugInfo' can only include 'ethdebug', if output 'ir', 'irOptimized', 'evm.bytecode.ethdebug' or 'evm.deployedBytecode.ethdebug' was selected.",
+			"'settings.debug.debugInfo' can only include 'ethdebug', if output 'ir', 'irOptimized', 'evm.bytecode.ethdebug', or 'evm.deployedBytecode.ethdebug' was selected.",
 			std::nullopt,
 		},
 		{
 			generateStandardJson(true, Json::array({"ethdebug"}), Json::array({"*"})),
-			"'settings.debug.debugInfo' can only include 'ethdebug', if output 'ir', 'irOptimized', 'evm.bytecode.ethdebug' or 'evm.deployedBytecode.ethdebug' was selected.",
+			"'settings.debug.debugInfo' can only include 'ethdebug', if output 'ir', 'irOptimized', 'evm.bytecode.ethdebug', or 'evm.deployedBytecode.ethdebug' was selected.",
 			std::nullopt,
 		},
 		{
@@ -2062,7 +2062,7 @@ BOOST_AUTO_TEST_CASE(ethdebug_debug_info_ethdebug)
 					{"fileB", "pragma solidity >=0.0; contract contractB { function f() public pure {} }"}
 				}), true
 			),
-			"'settings.debug.debugInfo' can only include 'ethdebug', if output 'ir', 'irOptimized', 'evm.bytecode.ethdebug' or 'evm.deployedBytecode.ethdebug' was selected.",
+			"'settings.debug.debugInfo' can only include 'ethdebug', if output 'ir', 'irOptimized', 'evm.bytecode.ethdebug', or 'evm.deployedBytecode.ethdebug' was selected.",
 			std::nullopt,
 		},
 		{
@@ -2277,7 +2277,7 @@ BOOST_AUTO_TEST_CASE(ethdebug_ethdebug_output)
 			[](const Json& result)
 			{
 				return result["contracts"]["fileA"]["contractA"]["evm"]["deployedBytecode"].contains("ethdebug") &&
-					result["contracts"]["fileB"]["contractB"]["evm"]["bytecode"].contains("ethdebug") ;
+					result["contracts"]["fileB"]["contractB"]["evm"]["bytecode"].contains("ethdebug") && result.contains("ethdebug");
 			}
 		}
 	};

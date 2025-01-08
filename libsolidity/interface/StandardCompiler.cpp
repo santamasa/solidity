@@ -184,9 +184,10 @@ bool isArtifactRequested(Json const& _outputSelection, std::string const& _artif
 			// TODO: yulCFGJson is only experimental now, so it should not be matched by "*".
 			if (_artifact == "yulCFGJson")
 				return false;
-			// "ir", "irOptimized" can only be matched by "*" if activated.
+			// TODO: everything ethdebug related is only experimental for now, so it should not be matched by "*".
 			if (_artifact.find("ethdebug") != std::string::npos)
 				return false;
+			// "ir", "irOptimized" can only be matched by "*" if activated.
 			if (experimental.count(_artifact) == 0 || _wildcardMatchesExperimental)
 				return true;
 		}
@@ -1201,7 +1202,7 @@ std::variant<StandardCompiler::InputsAndSettings, Json> StandardCompiler::parseI
 		ret.debugInfoSelection.has_value() && ret.debugInfoSelection->ethdebug && ret.language == "Solidity" &&
 		!pipelineConfig(ret.outputSelection)[""][""].irCodegen && !isEthdebugRequested(ret.outputSelection)
 	)
-		return formatFatalError(Error::Type::FatalError, "'settings.debug.debugInfo' can only include 'ethdebug', if output 'ir', 'irOptimized', 'evm.bytecode.ethdebug' or 'evm.deployedBytecode.ethdebug' was selected.");
+		return formatFatalError(Error::Type::FatalError, "'settings.debug.debugInfo' can only include 'ethdebug', if output 'ir', 'irOptimized', 'evm.bytecode.ethdebug', or 'evm.deployedBytecode.ethdebug' was selected.");
 
 	return {std::move(ret)};
 }
@@ -1287,7 +1288,7 @@ Json StandardCompiler::importEVMAssembly(StandardCompiler::InputsAndSettings _in
 		if (evmCreationArtifactRequested("linkReferences"))
 			creationJSON["linkReferences"] = formatLinkReferences(stack.object(sourceName).linkReferences);
 		if (evmCreationArtifactRequested("ethdebug"))
-			creationJSON["ethdebug"] = stack.ethdebug(sourceName, false);
+			creationJSON["ethdebug"] = stack.ethdebug(sourceName);
 		evmData["bytecode"] = creationJSON;
 	}
 
@@ -1317,7 +1318,7 @@ Json StandardCompiler::importEVMAssembly(StandardCompiler::InputsAndSettings _in
 		if (evmDeployedArtifactRequested("immutableReferences"))
 			deployedJSON["immutableReferences"] = formatImmutableReferences(stack.runtimeObject(sourceName).immutableReferences);
 		if (evmDeployedArtifactRequested("ethdebug"))
-			deployedJSON["ethdebug"] = stack.ethdebug(sourceName, true);
+			deployedJSON["ethdebug"] = stack.ethdebugRuntime(sourceName);
 		evmData["deployedBytecode"] = deployedJSON;
 	}
 
@@ -1559,7 +1560,7 @@ Json StandardCompiler::compileSolidity(StandardCompiler::InputsAndSettings _inpu
 			if (evmCreationArtifactRequested("generatedSources"))
 				creationJSON["generatedSources"] = compilerStack.generatedSources(contractName, /* _runtime */ false);
 			if (evmCreationArtifactRequested("ethdebug"))
-				creationJSON["ethdebug"] = compilerStack.ethdebug(contractName, false);
+				creationJSON["ethdebug"] = compilerStack.ethdebug(contractName);
 			evmData["bytecode"] = creationJSON;
 		}
 
@@ -1591,7 +1592,7 @@ Json StandardCompiler::compileSolidity(StandardCompiler::InputsAndSettings _inpu
 			if (evmDeployedArtifactRequested("generatedSources"))
 				deployedJSON["generatedSources"] = compilerStack.generatedSources(contractName, /* _runtime */ true);
 			if (evmDeployedArtifactRequested("ethdebug"))
-				deployedJSON["ethdebug"] = compilerStack.ethdebug(contractName, true);
+				deployedJSON["ethdebug"] = compilerStack.ethdebugRuntime(contractName);
 			evmData["deployedBytecode"] = deployedJSON;
 		}
 

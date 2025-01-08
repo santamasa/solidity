@@ -652,13 +652,7 @@ General Information)").c_str(),
 			po::value<std::string>()->default_value(util::toString(DebugInfoSelection::Default())),
 			("Debug info components to be included in the produced EVM assembly and Yul code. "
 			"Value can be all, none or a comma-separated list containing one or more of the "
-			"following components: " +
-				util::joinHumanReadable(
-					DebugInfoSelection::componentMap() | ranges::views::keys |
-						// Note: We intentionally keep ethdebug undocumented for now.
-						ranges::views::filter([](std::string const& key) { return key != "ethdebug"; }) |
-						ranges::to<std::vector>()
-				) + ".").c_str()
+			"following components: " + util::joinHumanReadable(DebugInfoSelection::Default().selectedNames()) + ".").c_str()
 		)
 		(
 			g_strStopAfter.c_str(),
@@ -1490,27 +1484,29 @@ void CommandLineParser::processArgs()
 		m_options.input.mode == InputMode::EVMAssemblerJSON
 	);
 
-	std::string ethdebugOutputSelection =
-		"--" + CompilerOutputs::componentName(&CompilerOutputs::ethdebug) + " / --" + CompilerOutputs::componentName(&CompilerOutputs::ethdebugRuntime);
-
 	bool incompatibleEthdebugOutputs =
 		m_options.compiler.outputs.asmJson || m_options.compiler.outputs.irAstJson || m_options.compiler.outputs.irOptimizedAstJson;
 
 	bool incompatibleEthdebugInputs = m_options.input.mode != InputMode::Compiler;
+
+	static std::string enableEthdebugMessage =
+		"--" + CompilerOutputs::componentName(&CompilerOutputs::ethdebug) + " / --" + CompilerOutputs::componentName(&CompilerOutputs::ethdebugRuntime);
+
+	static std::string enableIrMessage =
+		"--" + CompilerOutputs::componentName(&CompilerOutputs::ir) + " / --" + CompilerOutputs::componentName(&CompilerOutputs::irOptimized) ;
 
 	if (m_options.compiler.outputs.ethdebug || m_options.compiler.outputs.ethdebugRuntime)
 	{
 		if (!m_options.output.viaIR)
 			solThrow(
 				CommandLineValidationError,
-				"--" + CompilerOutputs::componentName(&CompilerOutputs::ethdebug) + " / --" + CompilerOutputs::componentName(&CompilerOutputs::ethdebugRuntime) + " output can only be selected, if --via-ir was specified."
+				enableEthdebugMessage  + " output can only be selected, if --via-ir was specified."
 			);
 
 		if (incompatibleEthdebugOutputs)
 			solThrow(
 				CommandLineValidationError,
-				ethdebugOutputSelection + " output can only be used with --" + CompilerOutputs::componentName(&CompilerOutputs::ir) +
-				", --" + CompilerOutputs::componentName(&CompilerOutputs::irOptimized) + "."
+				enableEthdebugMessage + " output can only be used with " + enableIrMessage + "."
 			);
 
 		if (!m_options.output.debugInfoSelection.has_value())
@@ -1523,7 +1519,7 @@ void CommandLineParser::processArgs()
 			if (!m_options.output.debugInfoSelection->ethdebug)
 				solThrow(
 					CommandLineValidationError,
-					"--debug-info must contain ethdebug, when compiling with " + ethdebugOutputSelection + "."
+					"--debug-info must contain ethdebug, when compiling with " + enableEthdebugMessage + "."
 				);
 		}
 	}
@@ -1534,9 +1530,7 @@ void CommandLineParser::processArgs()
 	)
 		solThrow(
 			CommandLineValidationError,
-			"--debug-info ethdebug can only be used with --" + CompilerOutputs::componentName(&CompilerOutputs::ir) +
-			", --" + CompilerOutputs::componentName(&CompilerOutputs::irOptimized) +
-			" and/or " + ethdebugOutputSelection + "."
+			"--debug-info ethdebug can only be used with " + enableIrMessage + " and/or " + enableEthdebugMessage + "."
 		);
 
 	if (m_options.output.debugInfoSelection.has_value() && m_options.output.debugInfoSelection->ethdebug && incompatibleEthdebugInputs)

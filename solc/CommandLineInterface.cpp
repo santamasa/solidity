@@ -561,7 +561,7 @@ void CommandLineInterface::handleEthdebug()
 		if (!m_options.output.dir.empty())
 			createFile("ethdebug.json", ethdebug);
 		else
-			sout() << "======= Debug Data (ethdebug/format/object) =======" << std::endl << ethdebug << std::endl;
+			sout() << "======= Debug Data (ethdebug/format/info) =======" << std::endl << ethdebug << std::endl;
 	}
 }
 
@@ -574,7 +574,7 @@ void CommandLineInterface::handleEthdebug(std::string const& _contract)
 
 	if (m_options.compiler.outputs.ethdebug)
 	{
-		std::string ethdebug{jsonPrint(removeNullMembers(m_compiler->ethdebug(_contract, false)), m_options.formatting.json)};
+		std::string ethdebug{jsonPrint(removeNullMembers(m_compiler->ethdebug(_contract)), m_options.formatting.json)};
 		if (!m_options.output.dir.empty())
 			createFile(m_compiler->filesystemFriendlyName(_contract) + "_ethdebug.json", ethdebug);
 		else
@@ -583,7 +583,7 @@ void CommandLineInterface::handleEthdebug(std::string const& _contract)
 
 	if (m_options.compiler.outputs.ethdebugRuntime)
 	{
-		std::string ethdebugRuntime{jsonPrint(removeNullMembers(m_compiler->ethdebug(_contract, true)), m_options.formatting.json)};
+		std::string ethdebugRuntime{jsonPrint(removeNullMembers(m_compiler->ethdebugRuntime(_contract)), m_options.formatting.json)};
 		if (!m_options.output.dir.empty())
 			createFile(m_compiler->filesystemFriendlyName(_contract) + "_ethdebug-runtime.json", ethdebugRuntime);
 		else
@@ -1336,7 +1336,7 @@ void CommandLineInterface::assembleYul(yul::YulStack::Language _language, yul::Y
 	{
 		Json ethdebugObject = Json::object();
 		ethdebugObject["sources"] = m_fileReader.sourceUnits() | ranges::views::keys;
-		sout() << "======= Debug Data (ethdebug/format/object) =======" << std::endl;
+		sout() << "======= Debug Data (ethdebug/format/info) =======" << std::endl;
 		sout() << util::jsonPrint(
 				ethdebugObject,
 				m_options.formatting.json
